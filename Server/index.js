@@ -18,10 +18,15 @@ const io = new Server(server, {
   },
 });
 const MONGO_URI =
-  "mongodb://0.0.0.0:27017/whatsapp";
+  "mongodb://43.205.173.201:50017/Suvit-Quality-Prod";
 let store;
 
-mongoose.connect(MONGO_URI).then(() => {
+let options = {
+  user: 'QualityAdminDevelopment',
+  pass: 'BHYHHQqhumDVx5BrXv7ucVPgLDpA538464tzZda7NmhhCe',
+}
+
+mongoose.connect(MONGO_URI, options).then(() => {
   console.log("hello connected mongoDB");
   store = new MongoStore({ mongoose: mongoose });
 });
