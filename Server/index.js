@@ -185,31 +185,32 @@ io.on("connection", (socket) => {
     const { sessionId, media, caption = 'this is my caption', number = "916355859435@c.us" } = data;
     try {
       const client = allSessionsObject[sessionId];
-      let isRegisterd = await client.isRegisteredUser(number)
-      if (isRegisterd) {
-        const ack = await client.sendMessage(number, caption);
-        if (ack) {
+      // let isRegisterd = await client.isRegisteredUser(number)
+      // if (isRegisterd) {
 
-          const acknowledgment = new MessageLog({
-            userId: sessionId,
-            sessionId: sessionId,
-            from: ack.from,
-            to: ack.to,
-            messageId: ack.id.id,
-            deviceType: ack.deviceType,
-            body: ack.body,
-            _data: ack._data,
-            id: ack.id,
-          });
-          await acknowledgment.save();
-        }
-        console.log('==========> ack', ack);
-        socket.emit("sendMessages", {
-          ack,
+      const ack = await client.sendMessage(number, caption);
+      if (ack) {
+
+        const acknowledgment = new MessageLog({
+          userId: sessionId,
+          sessionId: sessionId,
+          from: ack.from,
+          to: ack.to,
+          messageId: ack.id.id,
+          deviceType: ack.deviceType,
+          body: ack.body,
+          _data: ack._data,
+          id: ack.id,
         });
-      } else {
-        console.log(number + ' not Registerd');
+        await acknowledgment.save();
       }
+      console.log('==========> ack', ack);
+      socket.emit("sendMessages", {
+        ack,
+      });
+      // } else {
+      //   console.log(number + ' not Registerd');
+      // }
     } catch (error) {
       console.error('sendMessage Error:', error);
     }
