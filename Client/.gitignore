@@ -1,0 +1,28 @@
+# Dependencies
+.wwebjs_auth
+node_modules
+./sandBoxToken.json
+.DS_Store
+
+# package-lock.json (use yarn.lock instead)
+package-lock.json
+yarn.lock
+
+# yarn error logs
+yarn-error.log
+
+# Environment varibales
+# .env*
+!.env*.example
+.env
+
+# Code coverage
+coverage
+.history
+
+#uploads
+uploads
+
+#Generated excel for reporting purpose
+excels-generated
+
