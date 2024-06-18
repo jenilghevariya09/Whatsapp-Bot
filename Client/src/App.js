@@ -4,6 +4,7 @@ import QRCode from "react-qr-code";
 import { useEffect, useState } from "react";
 const socket = io.connect("http://localhost:3009", {});
 function App() {
+  var num = 0;
   const [session, setSession] = useState("");
   const [qrCode, setQrCode] = useState("");
   // const [oldSessionId] = useState("");
@@ -12,7 +13,7 @@ function App() {
       id: session,
     });
   };
-  const [id, setId] = useState("tested");
+  const [id, setId] = useState("bomb");
   // const [message, setMessage] = useState({});
 
   useEffect(() => {
@@ -43,17 +44,20 @@ function App() {
 
   }, []);
 
-  // const getOldSession = () => {
-  //   socket.emit("getSession", { id: oldSessionId });
-  // };
+
   const getAllChats = () => {
     socket.emit("getAllChats", { id });
   };
   const sendMessage = () => {
+    const numbers = ["91YOUR_NUMBER@c.us"]; 
+
     socket.emit("sendMessage", {
-      sessionId: id, number: "917874409395@c.us", caption: 'Message from Bot'
+      sessionId: id, numbers: numbers, caption: `Message from Bot ${num + 1}`
     });
+    num = num + 1
   };
+
+
 
   return (
     <div className="App">
@@ -91,7 +95,7 @@ function App() {
         }}
       >
         {id !== "" && <button onClick={getAllChats}>Get all chats</button>}
-        { <button onClick={sendMessage}>Send Message</button>}
+        {<button onClick={sendMessage}>Send Message</button>}
       </div>
       {qrCode && <QRCode value={qrCode} />}
     </div>

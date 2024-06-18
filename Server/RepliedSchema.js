@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-const Message = require('./messageSchema'); 
+const Message = require('./MessageSchema'); 
 
 const repliedSchema = mongoose.Schema(
     {
@@ -47,7 +47,7 @@ const repliedSchema = mongoose.Schema(
             default: {}
         },
         parentId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
             ref: 'Message',
             default: null,
         },
